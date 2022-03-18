@@ -10,4 +10,7 @@ app = Flask(__name__)
 @app.route("/search/<category>")
 def searchCatServer(category):
     return requests.get("http://192.168.1.33:5000/search/%s" % category).content
-
+    
+@app.route("/info/<item_number>")
+def infoCatServer(item_number):
+    return requests.get("http://192.168.1.33:5000/info/%s" % item_number).content    
