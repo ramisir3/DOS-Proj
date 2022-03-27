@@ -8,7 +8,7 @@ app = Flask(__name__)
 
 
 
-@app.route("/search/<category>")
+@app.route("/search/<category>",methods = ['GET'])
 def search(category):
     file = open('catalog.csv')
     csvreader = csv.reader(file, delimiter=',')
@@ -20,12 +20,12 @@ def search(category):
     		line.pop('Category')
     		line.pop('quantity')
     		line.pop('price')
-    		s+= json.dumps(line, indent = 4) + "<br>"
+    		s+= json.dumps(line, indent = 4)
     file.close()
     if flag == 0: s+= "No matching category"
     return s
     
-@app.route("/info/<item_number>")
+@app.route("/info/<item_number>",methods = ['GET'])
 def info(item_number):
     file = open('catalog.csv')
     csvreader = csv.reader(file, delimiter=',')
@@ -36,7 +36,21 @@ def info(item_number):
     		flag = 1
     		line.pop('Category')
     		line.pop('ID')
-    		s+= json.dumps(line, indent = 4) + "<br>"
+    		s+= json.dumps(line, indent = 4)
     file.close()
-    if flag == 0: s+= "No matching category"
+    if flag == 0: s+= "Item not found :("
     return s
+
+@app.route("/update/<item_number>",methods = ['PUT'])
+def update(item_number):
+    file = open('catalog.csv')
+    csvreader = csv.reader(file, delimiter=',')
+    print (request.get_data())
+    for line in csv.DictReader(file):
+        if line['ID'] == item_number:
+            print (request.get_data())
+            line['quantity'] = request.get_json()['quantity']
+            print(line['quantity'])
+    file.close()
+    return json.dumps({'success':True}), 200, {'ContentType':'application/json'}
+

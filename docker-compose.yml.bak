@@ -16,7 +16,7 @@ services:
     expose:
       - 5000
   order:
-    build:
+     build:
       context: ./order
     command: [ "flask", "run", "--host=0.0.0.0"]
     ports:
