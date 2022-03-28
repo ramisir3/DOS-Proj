@@ -44,13 +44,10 @@ def info(item_number):
 @app.route("/update/<item_number>",methods = ['PUT'])
 def update(item_number):
     file = open('catalog.csv')
-    csvreader = csv.reader(file, delimiter=',')
-    print (request.get_data())
     for line in csv.DictReader(file):
         if line['ID'] == item_number:
-            print (request.get_data())
-            line['quantity'] = request.get_json()['quantity']
-            print(line['quantity'])
-    file.close()
-    return json.dumps({'success':True}), 200, {'ContentType':'application/json'}
+            print(request.get_data())
+            line['quantity'] = int(line['quantity']) -1
+            file.close()
+    return json.dumps({'successss':True}), 200, {'ContentType':'application/json'}
 
