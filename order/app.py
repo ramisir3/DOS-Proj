@@ -11,8 +11,8 @@ def purchaseCatServer(item_number):
     quantity = int(requests.get("http://catalog:5000/info/%s" % item_number).json()['quantity']) 
     if quantity > 0:
 		#if available in stock, update the quantity from the catalog server
-        requests.put("http://catalog:5000/update/%s" % item_number)
-        return json.dumps("Purchase complete :)"), 200, {'ContentType': 'application/json'}
+        bookName = requests.put("http://catalog:5000/update/%s" % item_number).content
+        return json.dumps("Purchase complete :) bought book %s" % bookName), 200, {'ContentType': 'application/json'}
     else:
 		#if not in stock, return failure message
         return json.dumps("Item not available in stock. Purchase failed :("), 400, {'ContentType': 'application/json'}
