@@ -17,7 +17,7 @@ The Distributed Operating Systems Course Project which is a Multi-tier Online Bo
 - To get all items in the catalog : `search` using GET methods
 - To get an item in the catalog : `info/<item_number>` using GET methods
 - To get all items of a topic : `search/<category>` using GET methods
-- To decrease an item quantity by 1 : `update/<item_number>` using PUT methods
+- To decrease an item quantity by 1 : `update/<item_number>` using GET methods in frontEnd but PUT from order to catalog
 
   # How it works
 We wrote the code in Python using FLASK
@@ -27,5 +27,21 @@ namely the frontend, Orders and Catalog servers. The main server is the Catalog 
 We wrote a docker file which builds a docker image for each server to work separately independently, then we connected the images/dockerfile with a docker compose file that connects the containers.
 
   # Considerations and Possible Improvements
-A GUI can be used with FrontEnd server
+ A GUI can be used with FrontEnd server
 
+  # Output Screenshots
+  screenshots showing the output of each operation on the frontEnd server using Postman
+  /search
+  ![image](https://user-images.githubusercontent.com/54281674/161630311-fa1469f6-b9f8-44bb-830b-345c4d7ea9ba.png)
+  
+  /search/<category>
+  ![image](https://user-images.githubusercontent.com/54281674/161630424-87233093-3776-4b6d-bde8-274c92ad58ba.png)
+  ![image](https://user-images.githubusercontent.com/54281674/161630482-66516e3f-4240-4a84-a4c0-451c94aea0e5.png)
+
+  /info/<item_number>
+  ![image](https://user-images.githubusercontent.com/54281674/161630580-9211b34b-73cd-4c6d-86f5-21dbf15bc2bc.png)
+  ![image](https://user-images.githubusercontent.com/54281674/161630631-3823a179-e1fd-4af4-a807-c8009ce82e16.png)
+  
+  /purchase/<item_number>
+  ![image](https://user-images.githubusercontent.com/54281674/161630699-8ed5d22e-5c4b-4783-a5d5-2f0587a9e23e.png)
+  ![image](https://user-images.githubusercontent.com/54281674/161630747-d0b32b3e-5576-4c39-9d8c-dfa144b1805c.png)
