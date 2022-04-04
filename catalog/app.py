@@ -57,7 +57,7 @@ def info(item_number):
 @app.route("/update/<item_number>", methods=['PUT'])
 def update(item_number):
     df = pd.read_csv('catalog.csv')
-	bookName =df.loc[int(item_number) - 1, 'title']
+    bookName =df.loc[int(item_number) - 1, 'title']
     quantity =df.loc[int(item_number) - 1, 'quantity'] - 1
     df.loc[int(item_number)- 1, 'quantity'] = quantity
     df.to_csv('catalog.csv', index=False)
