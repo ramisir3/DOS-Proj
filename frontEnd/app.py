@@ -17,7 +17,7 @@ robin = False
 def searchAllCatServer():
     global robin
     robin = not robin
-    return requests.get(catalog1 if robin else catalog2+"/search").content
+    return requests.get((catalog1 if robin else catalog2)+"/search").content
 
 #forward to catalog server
 @app.route("/search/<category>", methods=['GET'])
@@ -25,7 +25,7 @@ def searchCatServer(category):
     global robin
     robin = not robin
     if (category not in cache):
-        cache[category] = requests.get(catalog1 if robin else catalog2+"/search/%s" % category).content
+        cache[category] = requests.get((catalog1 if robin else catalog2)+"/search/%s" % category).content
     return cache[category]
 
 #forward to catalog server
@@ -34,7 +34,7 @@ def infoCatServer(item_number):
     global robin
     robin = not robin
     if(item_number not in cache):
-        cache[item_number] = requests.get(catalog1 if robin else catalog2+"/info/%s" % item_number).content
+        cache[item_number] = requests.get((catalog1 if robin else catalog2)+"/info/%s" % item_number).content
     print(cache)
     return cache[item_number]
 
@@ -44,5 +44,6 @@ def purchaseCatServer(item_number):
     global robin
     robin = not robin
     if (item_number in cache):
-        cache.pop[item_number]
-    return requests.get(oreder1 if robin else oreder2+"/purchase/%s" % item_number).content
+        cache.pop(item_number)
+    requests.get((oreder1) + "/purchase/%s" % item_number)
+    return requests.get((oreder2)+"/purchase/%s" % item_number).content

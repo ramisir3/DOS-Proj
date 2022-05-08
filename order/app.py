@@ -1,6 +1,7 @@
 from flask import Flask
 import requests
 import json
+import os
 
 app = Flask(__name__)
 
@@ -8,10 +9,13 @@ app = Flask(__name__)
 @app.route("/purchase/<item_number>", methods=['GET'])
 def purchaseCatServer(item_number):
 	# check quantity in stock
-    quantity = int(requests.get("http://catalog:5000/info/%s" % item_number).json()['quantity']) 
+    msg =requests.get(os.environ['CATALOG']+"/info/%s" % item_number)
+    if msg.content.decode() == "Item not found :(":
+        return msg.content
+    quantity = int(msg.json()['quantity'])
     if quantity > 0:
 		#if available in stock, update the quantity from the catalog server
-        bookName = requests.put("http://catalog:5000/update/%s" % item_number).content
+        bookName = requests.put(os.environ['CATALOG']+"/update/%s" % item_number).content
         s = "Purchase complete :) bought book " + bookName.decode('UTF-8')
         return json.dumps(s), 200, {'ContentType': 'application/json'}
     else:
